@@ -9,8 +9,8 @@ os.makedirs('output', exist_ok=True)
 from InisiasiPopulasi import inisialisasi_populasi
 from EvaluasiFitness import hitung_fitness
 from selection import tournament_selection
-from crossover import two_point_crossover
-from mutation import inversion_mutation
+from crossover import one_point_crossover
+from mutation import swap_mutation
 
 # data barang: (nama, keuntungan, ukuran)
 barang = [
@@ -25,7 +25,7 @@ def run_ga(jumlah_generasi, jumlah_populasi, prob_crossover, prob_mutasi, kapasi
     print("=" * 70)
     print("     TUGAS PRAKTIKUM KECERDASAN BUATAN - PERTEMUAN 10")
     print("     Optimasi Gudang (Knapsack) dengan Algoritma Genetika")
-    print("     NIM: H1D024034")
+    print("     NIM: H1D024036")
     print("=" * 70)
     
     # print parameter
@@ -36,8 +36,8 @@ def run_ga(jumlah_generasi, jumlah_populasi, prob_crossover, prob_mutasi, kapasi
     print(f"  - Probabilitas Crossover    : {prob_crossover}")
     print(f"  - Probabilitas Mutasi       : {prob_mutasi}")
     print(f"  - Metode Seleksi            : Tournament Selection (TS), k={tournament_size}")
-    print(f"  - Metode Crossover          : Two-Point Crossover")
-    print(f"  - Metode Mutasi             : Inversion Mutation\n")
+    print(f"  - Metode Crossover          : One-Point Crossover")
+    print(f"  - Metode Mutasi             : Swap Mutation\n")
     
     # print data barang
     print("[INFO] Data Barang Toko:")
@@ -110,15 +110,15 @@ def run_ga(jumlah_generasi, jumlah_populasi, prob_crossover, prob_mutasi, kapasi
             
             # crossover
             if random.random() < prob_crossover:
-                anak1, anak2 = two_point_crossover(parent1, parent2)
+                anak1, anak2 = one_point_crossover(parent1, parent2)
             else:
                 anak1, anak2 = parent1[:], parent2[:]
                 
             # mutasi
             if random.random() < prob_mutasi:
-                anak1 = inversion_mutation(anak1)
+                anak1 = swap_mutation(anak1)
             if random.random() < prob_mutasi:
-                anak2 = inversion_mutation(anak2)
+                anak2 = swap_mutation(anak2)
                 
             new_populasi.extend([anak1, anak2])
             
@@ -159,7 +159,7 @@ def run_ga(jumlah_generasi, jumlah_populasi, prob_crossover, prob_mutasi, kapasi
     plt.plot(range(1, jumlah_generasi + 1), worst_fitness_list, color='#ff6f61', linewidth=2, label='Fitness Terendah (Worst)')
     plt.plot(range(1, jumlah_generasi + 1), avg_fitness_list, color='#1e3d59', linewidth=2, linestyle='--', label='Fitness Rata-rata (Avg)')
     
-    plt.title('Grafik Perkembangan Nilai Fitness per Generasi\nNIM: H1D024034', fontsize=12, fontweight='bold', pad=12)
+    plt.title('Grafik Perkembangan Nilai Fitness per Generasi\nNIM: H1D024036', fontsize=12, fontweight='bold', pad=12)
     plt.xlabel('Generasi')
     plt.ylabel('Nilai Fitness')
     plt.legend(loc='lower right', frameon=True, facecolor='white', edgecolor='lightgray')

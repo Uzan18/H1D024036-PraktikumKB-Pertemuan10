@@ -32,8 +32,8 @@ Program Algoritma Genetika buat menyelesaikan masalah Knapsack (optimasi gudang)
 ## Metode yang Dipakai
 
 - **Seleksi:** Tournament Selection (k=3)
-- **Crossover:** Two-Point Crossover
-- **Mutasi:** Inversion Mutation
+- **Crossover:** One-Point Crossover
+- **Mutasi:** Swap Mutation
 
 ## Penjelasan File
 
